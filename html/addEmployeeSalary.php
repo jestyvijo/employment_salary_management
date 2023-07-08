@@ -1,45 +1,29 @@
 <?php
 require("dash.php");
 require("config.php");
+?>
+<?php
+$query = "SELECT * FROM employee_details";
+$result = $conn->query($query);
+if ($result->num_rows > 0) {
+    $options = mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
-    $phone = $_POST['phone'];
+    $id = $_POST['id'];
     $salary = $_POST['salary'];
-    $email = $_POST['email'];
-    $today = date("d/m/Y");
-    $sql = "INSERT INTO employee_details (name,Phone,Salary,email,dates)
-            VALUES ('$name','$phone','$salary','$email','$today')";
+    $bamount = $_POST['bamount'];
+    $today = date("Y/m/d");
+    $sql = "INSERT INTO employee (name,em_id,Salary,balance_prev_month,dates)
+            VALUES ('$name','$id','$salary','$bamount','$today')";
+
     if ($conn->query($sql) === TRUE) {
-        $msg = "New Employee created successfully";
+        $msg = "Employee salary added successfully";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $query = "SELECT * FROM employee_details WHERE id='$id'";
-    $result = $conn->query($query);
-    if ($result->num_rows > 0) {
-        $data= mysqli_fetch_array($result);  
-    }
-
-}
-if( isset($_POST['update']) )  
-{ 
-$id   = $_POST['id'];   
-$name1= $_POST['name'];  
-$phone1= $_POST['phone'];
-$salary1= $_POST['salary'];
-$email1= $_POST['email'];
-$sql     = "UPDATE employee_details SET name='".$name1."',Phone='".$phone1."',
-Salary='".$salary1."',email='".$email1."' WHERE id='$id'";  
-if ($conn->query($sql) === TRUE) {
-    $msg1 = "Updated Employee successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-} 
-}  
-?>  
+?>
 
 <!-- Main Content -->
 <div class="hk-pg-wrapper" style="background-image: url('./dist/img/1.avif');background-size:cover;">
@@ -50,47 +34,49 @@ if ($conn->query($sql) === TRUE) {
         <div class="row">
             <div class="col-xl-12">
                 <section class="get-in-touch">
-                    <h1 class="title">Employee Details</h1>
+                    <h1 class="title">Add Employee</h1>
                     <?php
                     if (isset($msg)) {
                         echo '<div class="alert alert-danger font-weight-bold" role="alert">' . $msg . '</div>';
                     }
-                    if (isset($msg1)) {
-                        echo '<div class="alert alert-danger font-weight-bold" role="alert">' . $msg1 . '</div>';
-                    }
                     ?>
-                            <form class="contact-form row" method="POST" action="">
-                                <div class="form-field col-lg-6">
-                                    <input id="name" name="name" class="input-text js-input" type="text" placeholder="Name"
-                                        value="<?php if(isset($data)){echo $data['name'];}?>" required>
-                                        <input id="name" name="id" class="input-text js-input" type="hidden" placeholder="Name"
-                                        value="<?php if(isset($data)){echo $data['id'];}?>" required>
-                                </div>
-                                <div class="form-field col-lg-6 ">
-                                    <input id="text" name="phone" class="input-text js-input" type="text"
-                                        placeholder="Contact Number" value="<?php if(isset($data)){echo $data['Phone'];}?>" required>
-                                </div>
-                                <div class="form-field col-lg-6 ">
-                                    <input id="company" name="salary" class="input-text js-input" type="number"
-                                        placeholder="Salary" value="<?php if(isset($data)){echo $data['Salary'];}?>" required>
-                                </div>
-                                <div class="form-field col-lg-6 ">
-                                    <input id="email" name="email" class="input-text js-input" type="email" placeholder="Email"
-                                    value="<?php if(isset($data)){echo $data['email'];}?>" required>
-                                </div>
-                                <div class="form-field col-lg-12">
-                                <?php 
-                                if(isset($data))
-                                {
-                                   echo'<input class="submit-btn" type="submit" name="update" value="Update">';
-                                 }
-                                 else{
-                                        echo'<input class="submit-btn" type="submit" name="submit" value="Submit">';
-                                 }
-                                 ?>
-                                    </div>
-                            </form>
-                      
+                    <form class="contact-form row" method="POST" action="">
+                        <div class="form-field col-lg-6">
+                                <label>Select Employee</label>
+                            <select id="employee" name="id" class="input-text js-input" required>
+                                <option value="">--- Select Employee ---</option>
+                                <?php
+                                foreach ($options as $option) {
+                                    ?>
+                                    <option value="<?php echo $option['id']; ?>">
+                                        <?php echo $option['name']; ?>
+                                    </option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                            <input id="name" name="name" class="input-text js-input" type="hidden"
+                                placeholder="name" value="">
+                        </div>
+                        <div class="form-field col-lg-6 ">
+                        <label>Prefered Salary</label>
+                            <input id="balanceIncome" name="balance" class="input-text js-input"
+                                type="number" placeholder="Prefered salary" value="" readonly>
+                        </div>
+                        <div class="form-field col-lg-6 ">
+                        <label>Present month salary</label>
+                            <input id="csalary" name="salary" class="input-text js-input" type="number"
+                                placeholder="Salary" value="" required>
+                        </div>
+                        <div class="form-field col-lg-6 ">
+                        <label>Amount from previous month</label>
+                            <input id="bamount" style="color:red;font-weight:bold;background-color:yellow;" name="bamount" class="input-text js-input" type="text"
+                                placeholder="Balance from previous Month" value="" required>
+                        </div>
+                        <div class="form-field col-lg-12">
+                            <input class="submit-btn" type="submit" name="submit" value="Submit">
+                        </div>
+                    </form>
                 </section>
             </div>
         </div>
@@ -189,6 +175,41 @@ if ($conn->query($sql) === TRUE) {
 <!-- Init JavaScript -->
 <script src="dist/js/init.js"></script>
 <script src="dist/js/dashboard-data.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#employee").change(function () {
+            var id = $(this).find(":selected").val();
+            var dataString = 'empid=' + id;
+            $.ajax({
+                url: 'getuser1.php',
+                dataType: "json",
+                data: dataString,
+                cache: false,
+                success: function (employeeData) {
+                    if (employeeData) {
+                        let firstChar = employeeData.b.Salary.charAt(0);
+                        let firstChar1 = employeeData.b.Salary.charAt(1);
+                      if(firstChar=='-')
+                       {
+                        bsalary=parseInt(employeeData.a.Salary)+parseInt(employeeData.b.Salary);
+                        ms="Over Amount";
+                       }
+                       else{
+                        bsalary=parseInt(employeeData.a.Salary)+parseInt(employeeData.b.Salary);
+                        ms="";
+                       }
+                        $("#balanceIncome").val(employeeData.a.Salary);
+                        $("#bamount").val(employeeData.b.Salary+"   "+ms);
+                        $("#csalary").val(bsalary);
+                        $("#name").val(employeeData.a.name);
+                    } else {
+                        $("#balanceIncome").hide();
+                    }
+                }
+            });
+        })
+    })
+</script>
 
 </body>
 

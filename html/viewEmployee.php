@@ -3,22 +3,10 @@ require("dash.php");
 require("config.php");
 ?>
 <?php
-$query = "SELECT * FROM employee";
+$query = "SELECT * FROM employee_details";
 $result = $conn->query($query);
 if ($result->num_rows > 0) {
-    $options = mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-
-if (isset($_POST['submit'])) {
-    $id = $_POST['id'];
-    $dates1 = $_POST['dates1'];
-    $dates2 = $_POST['dates2'];
-    $sql = "SELECT * FROM employee_adv_history WHERE (dates BETWEEN '$dates1' AND '$dates2') AND em_id=$id";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        $datas = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
-
+    $datas = mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 ?>
 <!-- Main Content -->
@@ -30,47 +18,7 @@ if (isset($_POST['submit'])) {
         <div class="row">
             <div class="col-xl-12">
                 <section class="get-in-touch">
-                    <h1 class="title">Pay Report</h1>
-                    <form class="contact-form" method="POST" action="">
-                        <div class="row">
-                            <div class="form-field col-lg-3 ">
-                                <label>Employee</label>
-                            </div>
-                            <div class="form-field col-lg-3 ">
-                                <label>Start Date</label>
-                            </div>
-                            <div class="form-field col-lg-3 ">
-                                <label>End Date</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-field col-lg-3">
-                                <select id="employee" name="id" class="input-text js-input" required>
-                                    <option value="">--Employee--</option>
-                                    <?php
-                                    foreach ($options as $option) {
-                                        ?>
-                                        <option value="<?php echo $option['id']; ?>">
-                                            <?php echo $option['name']; ?>
-                                        </option>
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="form-field col-lg-3">
-                                <input id="dd1" name="dates1" class="input-text js-input dd" type="text"
-                                    placeholder="Date" required>
-                            </div>
-                            <div class="form-field col-lg-3">
-                                <input id="dd2" name="dates2" class="input-text js-input dd" type="text"
-                                    placeholder="Date" required>
-                            </div>
-                            <div class="form-field col-lg-3">
-                                <input class="submit-btn" type="submit" name="submit" value="View">
-                            </div>
-                        </div>
-                    </form>
+                    <h1 class="title">Employee List </h1>
                 </section>
             </div>
         </div>
@@ -84,11 +32,6 @@ if (isset($_POST['submit'])) {
                         <div class="row">
                             <div class="col-sm">
                                 <div class="table-wrap">
-                                    <div style="margin-left:427px;margin-top:-28px;font-size:20px;font-weight:bold;color:purple;">
-                                    <a href="<?php echo 'tcpdf/examples/payreport.php?id='.$id.'&date1='. $dates1.'&date2='. $dates2;?>"  target="_blank"
-                                        <i class="fa fa-print" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<span>Print</span>
-                                    </a>
-                                    </div>
                                     <table id="datable_1" class="table tablesaw table-hover w-100 display mb-30 tablesaw-sortable 
                                                 tablesaw-columntoggle bg-secondary" data-tablesaw-mode="columntoggle"
                                         data-tablesaw-sortable="" data-tablesaw-sortable-switch=""
@@ -96,8 +39,10 @@ if (isset($_POST['submit'])) {
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Amount</th>
-                                                <th>Date</th>
+                                                <th>Salary</th>
+                                                <th>Phone</th>
+                                                <th>Email</th>
+                                                <th colspan="2">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -107,8 +52,15 @@ if (isset($_POST['submit'])) {
                                             ?>
                                             <tr>
                                                 <td><?php echo $data['name']; ?></td>
-                                                <td><?php echo $data['advance_amount']; ?></td>
-                                                <td><?php echo $data['dates']; ?></td>
+                                                <td><?php echo $data['Salary']; ?></td>
+                                                <td><?php echo $data['Phone']; ?></td>
+                                                <td><?php echo $data['email']; ?></td>
+                                                <td colspan="2">
+                                                <a href="<?php echo 'addEmployee.php?id='. $data['id'];?>">
+                                                    <button class="btn btn-primary">Edit</button>
+                                                </a>
+                                                <button class="btn btn-danger">Delete</button>
+                                                </td>
                                             </tr>
                                             <?php
                                                 }

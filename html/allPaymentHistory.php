@@ -10,10 +10,9 @@ if ($result->num_rows > 0) {
 }
 
 if (isset($_POST['submit'])) {
-    $id = $_POST['id'];
     $dates1 = $_POST['dates1'];
     $dates2 = $_POST['dates2'];
-    $sql = "SELECT * FROM employee_adv_history WHERE (dates BETWEEN '$dates1' AND '$dates2') AND em_id=$id";
+    $sql = "SELECT * FROM employee_adv_history WHERE dates BETWEEN '$dates1' AND '$dates2'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         $datas = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -30,12 +29,9 @@ if (isset($_POST['submit'])) {
         <div class="row">
             <div class="col-xl-12">
                 <section class="get-in-touch">
-                    <h1 class="title">Pay Report</h1>
+                    <h1 class="title">All Employee Pay Report</h1>
                     <form class="contact-form" method="POST" action="">
                         <div class="row">
-                            <div class="form-field col-lg-3 ">
-                                <label>Employee</label>
-                            </div>
                             <div class="form-field col-lg-3 ">
                                 <label>Start Date</label>
                             </div>
@@ -44,20 +40,6 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-field col-lg-3">
-                                <select id="employee" name="id" class="input-text js-input" required>
-                                    <option value="">--Employee--</option>
-                                    <?php
-                                    foreach ($options as $option) {
-                                        ?>
-                                        <option value="<?php echo $option['id']; ?>">
-                                            <?php echo $option['name']; ?>
-                                        </option>
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
                             <div class="form-field col-lg-3">
                                 <input id="dd1" name="dates1" class="input-text js-input dd" type="text"
                                     placeholder="Date" required>
@@ -85,7 +67,7 @@ if (isset($_POST['submit'])) {
                             <div class="col-sm">
                                 <div class="table-wrap">
                                     <div style="margin-left:427px;margin-top:-28px;font-size:20px;font-weight:bold;color:purple;">
-                                    <a href="<?php echo 'tcpdf/examples/payreport.php?id='.$id.'&date1='. $dates1.'&date2='. $dates2;?>"  target="_blank"
+                                    <a href="<?php echo 'tcpdf/examples/allpayreport.php?date1='. $dates1.'&date2='. $dates2;?>"  target="_blank"
                                         <i class="fa fa-print" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<span>Print</span>
                                     </a>
                                     </div>

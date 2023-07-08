@@ -25,15 +25,23 @@
     <link href="vendors/datatables.net-dt/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
     <link href="vendors/datatables.net-responsive-dt/css/responsive.dataTables.min.css" rel="stylesheet"
         type="text/css" />
-        <link href=
-'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
-          rel='stylesheet'>
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
+        rel='stylesheet'>
     <!-- Toastr CSS -->
     <link href="vendors/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom CSS -->
     <link href="dist/css/style.css" rel="stylesheet" type="text/css">
-    
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('li').click(function () {
+                $(this).addClass("active");
+                $('li').removeClass("active");
+                
+            });
+        });
+    </script>
     <style>
         .get-in-touch {
             max-width: 800px;
@@ -50,12 +58,12 @@
             font-size: 3.2em;
             line-height: 38px;
             padding-bottom: 48px;
-            color: #5543ca;
+            color: #FF0000;
             background: #5543ca;
             font-weight: bold;
             background: -moz-linear-gradient(left, #f4524d 0%, #5543ca 100%) !important;
-            background: -webkit-linear-gradient(left, #f4524d 0%, #5543ca 100%) !important;
-            background: linear-gradient(to right, #f4524d 0%, #5543ca 100%) !important;
+            background: -webkit-linear-gradient(right, #FF0000 0%, #0000FF 100%) !important;
+            background: linear-gradient(to right, ##FF0000, 0%, #0000FF 100%) !important;
             -webkit-background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
         }
@@ -104,7 +112,7 @@
         .contact-form .submit-btn {
             display: inline-block;
             background-color: #000;
-            background-image: linear-gradient(125deg, #a72879, #064497);
+            background-image: linear-gradient(125deg, #FF0000, #0000FF);
             color: #fff;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -117,12 +125,17 @@
 
         label {
             font-size: 25px;
-            background: -webkit-linear-gradient(red,blue);
+            background: -webkit-linear-gradient(right, red, blue);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: bold;
         }
+
+        a:hover {
+            background-color: #C64B4B;
+        }
     </style>
+    
 </head>
 
 <body>
@@ -142,7 +155,7 @@
                     <i data-feather="menu"></i></span></a>
             <a class="navbar-brand font-weight-700" href="dashboard.html">
                 <h1 style="color: red; font-weight: bold; font-family: fantasy">Happy</h1>
-                <h2 style="color: blue; font-weight: bold">Collection</h2>
+                <h2 style="color: blue; font-weight: bold">Collections</h2>
             </a>
             <ul class="navbar-nav hk-navbar-content">
                 <li class="nav-item">
@@ -339,25 +352,43 @@
                         <li class="nav-item active btn-secondary">
                             <a href="dashboard.php" class="nav-link">
                                 <span class="feather-icon"><i data-feather="activity"></i></span>
-                                <span class="nav-link-text active" style="font-size: 23px;">Dashboard</span>
+                                <span class="nav-link-text" style="font-size: 23px;">Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-item active btn-dark">
                             <a href="addEmployee.php" class="nav-link">
                                 <span class="feather-icon"><i data-feather="user-plus"></i></span>
-                                <span class="nav-link-text active" style="font-size: 23px;">Add employees</span>
+                                <span class="nav-link-text" style="font-size: 23px;">Add employees</span>
+                            </a>
+                        </li>
+                        <li class="nav-item active btn-secondary">
+                            <a href="viewEmployee.php" class="nav-link">
+                                <span class="feather-icon"><i data-feather="book-open"></i></span>
+                                <span class="nav-link-text" style="font-size: 23px;">View employees</span>
+                            </a>
+                        </li>
+                        <li class="nav-item active btn-dark">
+                            <a href="addEmployeeSalary.php" class="nav-link">
+                                <span class="feather-icon"><i data-feather="calendar"></i></span>
+                                <span class="nav-link-text" style="font-size: 23px;">Monthly Salary</span>
                             </a>
                         </li>
                         <li class="nav-item active btn-secondary">
                             <a href="advancepay.php" class="nav-link">
                                 <span class="feather-icon"><i data-feather="edit"></i></span>
-                                <span class="nav-link-text active" style="font-size: 23px;">Advance pay</span>
+                                <span class="nav-link-text" style="font-size: 23px;">Advance pay</span>
                             </a>
                         </li>
                         <li class="nav-item active btn-dark">
                             <a href="paymentHistory.php" class="nav-link">
                                 <span class="feather-icon"><i data-feather="eye"></i></span>
-                                <span class="nav-link-text active" style="font-size: 23px;">Pay History</span>
+                                <span class="nav-link-text" style="font-size: 23px;">Employee Pay History</span>
+                            </a>
+                        </li>
+                        <li class="nav-item active btn-secondary">
+                            <a href="allPaymentHistory.php" class="nav-link">
+                                <span class="feather-icon"><i data-feather="file-text"></i></span>
+                                <span class="nav-link-text" style="font-size: 23px;">All Pay History</span>
                             </a>
                         </li>
                     </ul>

@@ -1,5 +1,5 @@
 <?php
-require("dash.php");
+// require("dash.php");
 require("config.php");
 ?>
 <?php
@@ -46,19 +46,21 @@ if (isset($_POST['submit'])) {
                                 <label>Balance Amount</label>
                             </div>
                             <div class="form-field col-lg-6 ">
-                                <input id="balanceIncome" name="balance"
+                            <input id="balanceIncome" name="balance" class="input-text js-input"
+                                type="number" placeholder="Prefered salary" value="" readonly>
+                                <!-- <input id="balanceIncome" name="balance"
                                     style="color:red;font-weight:bold;background-color:yellow;"
                                     class="input-text js-input" type="number" placeholder="Balance Amount" value=""
-                                    readonly>
+                                    readonly> -->
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-field col-lg-6 ">
+                            <div class="form-field col-lg-6">
                                 <label>Select Date</label>
                             </div>
                             <div class="form-field col-lg-6 ">
                                 <input id="dd" name="dates" class="input-text js-input" type="text" placeholder="Date"
-                                    required>
+                                required>
                             </div>
                         </div>
                         <div class="row">
@@ -93,7 +95,7 @@ if (isset($_POST['submit'])) {
                         <div class="row">
                             <div class="form-field col-lg-12">
                                 <center>
-                                    <input class="submit-btn" type="submit" name="submit" value="Submit">
+                                    <input class="submit-btn" type="submit" name="submit" value="Add">
                                 </center>
                             </div>
                         </div>
@@ -210,8 +212,22 @@ if (isset($_POST['submit'])) {
                 cache: false,
                 success: function (employeeData) {
                     if (employeeData) {
-                        $("#balanceIncome").val(employeeData.Salary);
-                        $("#name").val(employeeData.name);
+                        alert(employeeData.b.Salary)
+                        let firstChar = employeeData.b.Salary.charAt(0);
+                        let firstChar1 = employeeData.b.Salary.charAt(1);
+                      if(firstChar=='-')
+                       {
+                        bsalary=parseInt(employeeData.a.Salary)+parseInt(employeeData.b.Salary);
+                        ms="Over Amount";
+                       }
+                       else{
+                        bsalary=parseInt(employeeData.a.Salary)+parseInt(employeeData.b.Salary);
+                        ms="";
+                       }
+                        $("#balanceIncome").val(employeeData.a.Salary);
+                        $("#bamount").val(employeeData.b.Salary+"   "+ms);
+                        $("#csalary").val(bsalary);
+                        $("#name").val(employeeData.a.name);
                     } else {
                         $("#balanceIncome").hide();
                     }
