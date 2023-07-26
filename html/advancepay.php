@@ -1,9 +1,9 @@
 <?php
-// require("dash.php");
+require("dash.php");
 require("config.php");
 ?>
 <?php
-$query = "SELECT * FROM employee";
+$query = "SELECT * FROM employee_details GROUP BY name";
 $result = $conn->query($query);
 if ($result->num_rows > 0) {
     $options = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -18,15 +18,17 @@ if (isset($_POST['submit'])) {
     $current_amount = $balance - $adamount;
     $sql = "INSERT INTO employee_adv_history (em_id,name,balance_amount,advance_amount,dates)
      VALUES ('$id','$name','$current_amount','$adamount','$dates')";
+     echo $sql;
     if ($conn->query($sql) === TRUE) {
-        $sql = "UPDATE employee SET Salary=$current_amount WHERE id=$id";
-        if ($conn->query($sql) === TRUE) {
+        $sql1 = "UPDATE employee SET Salary=$current_amount WHERE em_id=$id";
+        echo $sql1;
+        if ($conn->query($sql1) === TRUE) {
             echo "Record updated successfully";
         } else {
             echo "Error updating record: " . $conn->error;
         }
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $sql1 . "<br>" . $conn->error;
     }
 }
 ?>
@@ -212,22 +214,10 @@ if (isset($_POST['submit'])) {
                 cache: false,
                 success: function (employeeData) {
                     if (employeeData) {
-                        alert(employeeData.b.Salary)
-                        let firstChar = employeeData.b.Salary.charAt(0);
-                        let firstChar1 = employeeData.b.Salary.charAt(1);
-                      if(firstChar=='-')
-                       {
-                        bsalary=parseInt(employeeData.a.Salary)+parseInt(employeeData.b.Salary);
-                        ms="Over Amount";
-                       }
-                       else{
-                        bsalary=parseInt(employeeData.a.Salary)+parseInt(employeeData.b.Salary);
-                        ms="";
-                       }
-                        $("#balanceIncome").val(employeeData.a.Salary);
-                        $("#bamount").val(employeeData.b.Salary+"   "+ms);
-                        $("#csalary").val(bsalary);
-                        $("#name").val(employeeData.a.name);
+                        $ss=employeeData.Salary
+                        $n1=employeeData.name
+                        $("#balanceIncome").val($ss)
+                        $("#name").val($n1)
                     } else {
                         $("#balanceIncome").hide();
                     }

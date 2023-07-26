@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2023 at 01:11 PM
+-- Generation Time: Jul 26, 2023 at 01:51 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.31
 
@@ -42,7 +42,7 @@ CREATE TABLE `employee` (
 
 INSERT INTO `employee` (`id`, `name`, `em_id`, `Salary`, `balance_prev_month`, `dates`) VALUES
 (9, 'jesty', 4, -7500, 0, '2023-06-15'),
-(11, 'Catherine', 6, 20000, 5000, '2023-06-15'),
+(11, 'Catherine', 6, 18500, 5000, '2023-06-15'),
 (13, 'Vijo', 5, 150000, 50000, '2023-06-27'),
 (14, 'jesty', 4, 42500, -7500, '2023-06-30');
 
@@ -82,7 +82,15 @@ INSERT INTO `employee_adv_history` (`id`, `em_id`, `name`, `balance_amount`, `ad
 (14, 9, 'jesty', 42500, 2500, '29-06-2023'),
 (15, 9, 'jesty', -2500, 45000, '26-06-2023'),
 (16, 9, 'jesty', -7500, 5000, '26-06-2023'),
-(17, 10, 'Vijo', 50000, 50000, '27-06-2023');
+(17, 10, 'Vijo', 50000, 50000, '27-06-2023'),
+(18, 11, '', 19000, 1000, '26-07-2023'),
+(19, 6, '', 18000, 1000, '26-07-2023'),
+(20, 6, '', 17000, 2000, '26-07-2023'),
+(21, 6, '', 18000, 1000, '26-07-2023'),
+(22, 6, 'Catherine', 18000, 1000, '26-07-2023'),
+(23, 6, 'Catherine', 18000, 1000, '26-07-2023'),
+(24, 6, 'Catherine', 18000, 1000, '26-07-2023'),
+(25, 6, 'Catherine', 18500, 500, '26-07-2023');
 
 -- --------------------------------------------------------
 
@@ -145,7 +153,7 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `employee_adv_history`
 --
 ALTER TABLE `employee_adv_history`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'id of table', AUTO_INCREMENT=18;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'id of table', AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `employee_details`
